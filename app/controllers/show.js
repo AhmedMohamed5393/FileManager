@@ -11,7 +11,7 @@ module.exports = {
             }else{
               res.render('pages/file', {
                 filename: file.filename,
-                time: functions.datesubtraction(Date.now(), file.uploadDate),
+                time: functions.datesubtraction(Date.now(), file.saveDate),
                 data: data.toString('utf-8'),
                 fid: req.params.id
               });

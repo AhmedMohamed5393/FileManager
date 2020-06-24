@@ -19,7 +19,7 @@ global.document = document;
 mongoose.connect(process.env.DB_URI , { 
     useUnifiedTopology : true, 
     useNewUrlParser: true, 
-    useFindAndModify: true
+    useFindAndModify: false
 });
 app.set('view engine' , 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));

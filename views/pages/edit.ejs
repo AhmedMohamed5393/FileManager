@@ -3,14 +3,16 @@
     <div class="row d-flex justify-content-center m-2">
         <%- include("../partials/messages") %>
     </div>
-    <form action="/files/<%= file._id %>/<%= file.filename %>/edit?_method=PUT" 
-          method="POST">
+    <form action="/files/<%= file._id %>/<%= file.filename %>?_method=PUT" 
+          method="POST" class="d-flex justify-content-center">
       <div class="row d-flex justify-content-center">
         <div class="card m-5 col-lg-8 col-md-8 col-sm-10 col-xs-10 col-10">
            <div class="card-body">
              <nav id="navbar-example2" class="navbar navbar-light bg-light">
-               <input type="text" class="form-control"
-                      value="<%= file.filename %>" name="filename">
+               <h3 class="navbar-brand"><%= file.filename %></h3>
+               <div class="row mr-2">
+                <small class="text-black-50"><%= time %></small>
+               </div>
                <ul class="nav nav-pills" hidden>
                  <li class="nav-item">
                    <a class="nav-link active" href="#verse1"></a>

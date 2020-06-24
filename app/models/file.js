@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
             type: String,
             required: true
         },
-        uploadDate: {
+        saveDate: {
             type: Date,
             required: true
         }

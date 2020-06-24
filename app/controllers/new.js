@@ -11,7 +11,7 @@ module.exports = {
     UploadFile: (req, res) => {
       var uploadfile = new File({
         filename: req.file.originalname,
-        uploadDate: new Date(),
+        saveDate: new Date(),
         contentType: 'text/html'
       });
       uploadfile.save().then(upfile => {
@@ -22,29 +22,28 @@ module.exports = {
         res.redirect('/');
       });
     },
-    CreateFile: (req, res) => {
-      var errors   = [],
-          file     = req.body.name,
-          newfile  = new File({
-            filename: file + '.html',
-            uploadDate: new Date(),
-            contentType: 'text/html'
-          });
-      newfile.save().then(createdFile => {
-        fs.writeFile('./public/files/' + createdFile.filename,
-         content, (err) => {
-          if(err){
-            req.flash('error_msg', 'Sorry! Creating process is failed');
-            res.redirect('/');
-          }else{
-            req.flash('success_msg',
-                      'You created ' + createdFile.filename + ' successfully');
-            res.redirect('/');
-          }
-        });
-      }).catch(error => {
-        errors.push({ msg: 'Sorry! Creating process is failed' });
-        res.render('pages/home', { errors, file });
-      });
-    }
+    // CreateFile: (req, res) => {
+    //   var errors  = [],
+    //       newfile = new File({
+    //         filename: req.body.name + '.html',
+    //         saveDate: new Date(),
+    //         contentType: 'text/html'
+    //       });
+    //   newfile.save().then(createdFile => {
+    //     fs.writeFile('./public/files/' + createdFile.filename,
+    //      content, (err) => {
+    //       if(err){
+    //         req.flash('error_msg', 'Sorry! Creating process is failed');
+    //         res.redirect('/');
+    //       }else{
+    //         req.flash('success_msg',
+    //                   'You created ' + createdFile.filename + ' successfully');
+    //         res.redirect('/');
+    //       }
+    //     });
+    //   }).catch(error => {
+    //     errors.push({ msg: 'Sorry! Creating process is failed' });
+    //     res.render('pages/home', { errors, file });
+    //   });
+    // }
 }

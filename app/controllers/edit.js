@@ -1,6 +1,6 @@
-var fs   = require('fs'),
-    File = require('../models/file'),
-    path = require('path');
+var fs        = require('fs'),
+    functions = require('../middlewares/functions'),
+    File      = require('../models/file');
 module.exports = {
     EditFile: (req, res) => {
        var messages = req.flash('error');
@@ -12,6 +12,7 @@ module.exports = {
            }else{
              res.render('pages/edit', {
                file: editfile,
+               time: functions.datesubtraction(Date.now(), editfile.saveDate),
                data: data,
                messages: messages
              });
@@ -23,34 +24,26 @@ module.exports = {
        });
     },
     UpdateFile: (req, res) => {
-        var oldname = req.params.filename;
+        var errors  = [];
         File.findOneAndUpdate(req.params.id, {
-          filename: req.body.filename,
+          filename: req.params.filename,
           contentType: 'type/html',
-          uploadDate: new Date()
-        }).then(updatedfile => {
+          saveDate: new Date()
+        }, (err, updatedfile) => {
+          if(err){
+            errors.push({ msg: "Sorry! This file doesn't exist" });
+            res.render('pages/edit', { errors });
+          }
           fs.writeFile('./public/files/' + updatedfile.filename, 
              req.body.textcontent, (error) => {
-              // fs.unlinkSync('./public/files/' + oldname);
               if(error){
                  req.flash('error_msg', "Sorry! This file doesn't exist");
                  res.redirect('back');
               }else{
-                 fs.rename('./public/files/' + oldname,
-                           './public/files/' + updatedfile.filename, () => {
-                   req.flash('success_msg', 'You updated the file successfully');
-                   res.redirect('/');
-                 });
+                req.flash('success_msg', 'You updated the file successfully');
+                res.redirect('/');
               }
           });
-        }).catch(err => {
-          if(err){
-            req.flash('error_msg', "Sorry! This file doesn't exist");
-            res.redirect('/');
-          }else if(path.extname(updatedfile.filename) != '.html'){
-            req.flash('error_msg', "Sorry! This file isn't a HTML");
-            res.redirect('back');
-          }
         });
     },
     DeleteFile: (req, res) => {
