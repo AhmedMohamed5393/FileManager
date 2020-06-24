@@ -1,0 +1,39 @@
+<%- include("../partials/header") %>
+<div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="card m-5 col-lg-8 col-md-8 col-sm-10 col-xs-10 col-10">
+        <div class="card-body">
+          <nav id="navbar-example2" class="navbar navbar-light bg-light">
+            <h3 class="navbar-brand"><%= filename %></h3>
+            <div class="row mr-2">
+              <small class="text-black-50"><%= time %></small>
+            </div>
+            <ul class="nav nav-pills" hidden>
+              <li class="nav-item">
+                <a class="nav-link active" href="#verse1"></a>
+              </li>
+            </ul>
+          </nav>
+          <div data-spy="scroll" data-target="#navbar-example2"
+               data-offset="0" class="scrollspy-example">
+            <article class="card-text" id="verse1">
+              <%= data %>
+            </article>
+          </div>          
+        </div>
+      </div>
+    </div>
+    <div class="row main d-flex justify-content-center mt-5 mb-4">
+      <div class="mr-2">
+        <a href="javascript:history.back()" class="btn btn-primary">
+          Go back
+        </a>
+      </div>
+      <div class="ml-2">
+        <a href="/files/<%= fid %>/<%= filename %>/edit" class="btn btn-warning">
+          Edit
+        </a>
+      </div>
+    </div>
+</div>
+<%- include("../partials/footer") %>
