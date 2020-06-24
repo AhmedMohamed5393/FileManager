@@ -4,6 +4,7 @@ var express      = require('express'),
     path         = require('path'),
     bodyParser   = require('body-parser'),
     mongoose     = require('mongoose'),
+    dburi        = process.env.DB_URI || process.env.MONGO_URI,
     host         = process.env.ip || 'localhost',
     port         = process.env.port || 3000,
     flash        = require('connect-flash'),
@@ -16,7 +17,7 @@ var express      = require('express'),
     { document } = (new JSDOM('')).window,
     $            = require("jquery")(window);
 global.document = document;
-mongoose.connect(process.env.DB_URI , { 
+mongoose.connect(dburi , { 
     useUnifiedTopology : true, 
     useNewUrlParser: true, 
     useFindAndModify: false
