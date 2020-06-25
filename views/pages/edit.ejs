@@ -3,44 +3,44 @@
     <div class="row d-flex justify-content-center m-2">
         <%- include("../partials/messages") %>
     </div>
-    <form action="/files/<%= file._id %>/<%= file.filename %>?_method=PUT" 
-          method="POST" class="d-flex justify-content-center">
-      <div class="row d-flex justify-content-center">
+    <div class="row d-flex justify-content-center">
+      <form action="/files/<%= file._id %>/<%= file.filename %>/edit?_method=PUT" 
+            method="post" enctype="multipart/form-data">
         <div class="card m-5 col-lg-8 col-md-8 col-sm-10 col-xs-10 col-10">
-           <div class="card-body">
-             <nav id="navbar-example2" class="navbar navbar-light bg-light">
-               <h3 class="navbar-brand"><%= file.filename %></h3>
-               <div class="row mr-2">
-                <small class="text-black-50"><%= time %></small>
-               </div>
-               <ul class="nav nav-pills" hidden>
-                 <li class="nav-item">
-                   <a class="nav-link active" href="#verse1"></a>
-                 </li>
-               </ul>
-             </nav>
-             <div data-spy="scroll" data-target="#navbar-example2"
-                  data-offset="0" class="scrollspy-example">
-               <div class="form-group">
-                  <textarea class="card-text form-control" name="textcontent"
-                            id="verse1" rows="7">
-                      <%= data %>
-                  </textarea>
-               </div>
-             </div>          
-           </div>
+          <div class="card-body">
+            <nav id="navbar-example2" class="navbar navbar-light bg-light">
+              <h3 class="navbar-brand"><%= file.filename %></h3>
+              <div class="row mr-2">
+               <small class="text-black-50"><%= time %></small>
+              </div>
+              <ul class="nav nav-pills" hidden>
+                <li class="nav-item">
+                  <a class="nav-link active" href="#verse1"></a>
+                </li>
+              </ul>
+            </nav>
+            <div data-spy="scroll" data-target="#navbar-example2"
+                 data-offset="0" class="scrollspy-example">
+              <div class="form-group">
+                 <textarea class="card-text form-control" name="textcontent"
+                           id="verse1" rows="7">
+                     <%= data %>
+                 </textarea>
+              </div>
+            </div>          
+          </div>
         </div>
-      </div>
-      <div class="row d-flex justify-content-center mt-5">
-        <div class="form-group mr-2">
-            <a href="javascript:history.back()" class="btn btn-primary">
-                Cancel
-            </a>
+        <div class="row d-flex justify-content-center mt-5">
+          <div class="form-group mr-2">
+              <a href="javascript:history.back()" class="btn btn-primary">
+                  Cancel
+              </a>
+          </div>
+          <div class="form-group ml-2">
+              <button type="submit" class="btn btn-secondary">Update File</button>
+          </div>
         </div>
-        <div class="form-group ml-2">
-            <button type="submit" class="btn btn-secondary">Update File</button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
 </div>
 <%- include("../partials/footer") %>
