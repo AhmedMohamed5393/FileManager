@@ -16,7 +16,7 @@ var express      = require('express'),
     { document } = (new JSDOM('')).window,
     $            = require("jquery")(window);
 global.document = document;
-mongoose.connect(process.env.DB_URI || process.env.MONGO_URI , { 
+mongoose.connect(process.env.MONGO_URI , { 
     useUnifiedTopology : true, 
     useNewUrlParser: true, 
     useFindAndModify: false
