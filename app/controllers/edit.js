@@ -24,31 +24,35 @@ module.exports = {
        });
     },
     UpdateFile: (req, res) => {
-        var errors  = [];
-        File.findOneAndUpdate(req.params.id, {
-          filename: req.params.filename,
-          contentType: 'type/html',
-          saveDate: new Date()
-        }, (err, updatedfile) => {
-          if(err){
-            errors.push({ msg: "Sorry! This file doesn't exist" });
-            res.render('pages/edit', { errors });
-          }
-          fs.writeFile('./public/files/' + updatedfile.filename, 
-             req.body.textcontent, (error) => {
-              if(error){
-                 req.flash('error_msg', "Sorry! This file doesn't exist");
-                 res.redirect('back');
-              }else{
-                req.flash('success_msg', 'You updated the file successfully');
-                res.redirect('/');
-              }
+        if(req.body.content != undefined){
+          File.findByIdAndUpdate(req.params.id, {
+            filename: req.params.filename
+          }, (err, updatedfile) => {
+            if(err){
+              req.flash('error_msg', "Sorry! This file doesn't exist");
+              res.redirect('/');
+            }
+            fs.writeFile('./public/files/' + updatedfile.filename, 
+               req.body.content, (error) => {
+                if(error){
+                   req.flash('error_msg', "Sorry! This file doesn't exist");
+                   res.redirect('/files/' + req.params.id);
+                }else{
+                  req.flash('success_msg', 'You updated the file successfully');
+                  res.redirect('/');
+                }
+            });
           });
-        });
+        }else{
+          req.flash('error_msg',
+                    "Sorry! There is something wrong while you updating this file"
+                   );
+          res.redirect('/files/' + req.params.id);
+        }
     },
     DeleteFile: (req, res) => {
         var errors = [];
-        File.findOneAndDelete(req.params.id).then(deletedfile => {
+        File.findByIdAndDelete(req.params.id).then(deletedfile => {
           fs.unlink('./public/files/' + deletedfile.filename, (error) => {
             if(error){
               req.flash('error_msg', "This file doesn't exist");

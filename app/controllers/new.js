@@ -12,38 +12,47 @@ module.exports = {
       var uploadfile = new File({
         filename: req.file.originalname,
         saveDate: new Date(),
-        contentType: 'text/html'
+        contentType: req.file.mimetype
       });
-      uploadfile.save().then(upfile => {
-        req.flash('success_msg', 'You upload ' + upfile.filename + ' successfully');
+      if(req.file.mimetype != 'text/html'){
+        req.flash("error_msg", "This file isn't an HTML file");
         res.redirect('/');
-      }).catch(err => {
-        req.flash('error_msg', 'Sorry! Uploading process is failed');
-        res.redirect('/');
-      });
+      }else{
+        uploadfile.save().then(upfile => {
+          req.flash('success_msg', 'You upload ' +
+                    upfile.filename + ' successfully');
+          res.redirect('/');
+        }).catch(err => {
+          req.flash('error_msg', 'Sorry! Uploading process is failed');
+          res.redirect('/');
+        });
+      }
     },
-    // CreateFile: (req, res) => {
-    //   var errors  = [],
-    //       newfile = new File({
-    //         filename: req.body.name + '.html',
-    //         saveDate: new Date(),
-    //         contentType: 'text/html'
-    //       });
-    //   newfile.save().then(createdFile => {
-    //     fs.writeFile('./public/files/' + createdFile.filename,
-    //      content, (err) => {
-    //       if(err){
-    //         req.flash('error_msg', 'Sorry! Creating process is failed');
-    //         res.redirect('/');
-    //       }else{
-    //         req.flash('success_msg',
-    //                   'You created ' + createdFile.filename + ' successfully');
-    //         res.redirect('/');
-    //       }
-    //     });
-    //   }).catch(error => {
-    //     errors.push({ msg: 'Sorry! Creating process is failed' });
-    //     res.render('pages/home', { errors, file });
-    //   });
-    // }
+    CreateFile: (req, res) => {
+      var newfile = new File({
+            filename: req.body.name + '.html',
+            saveDate: new Date(),
+            contentType: 'text/html'
+          });
+      if(req.body.name != undefined){
+        newfile.save().then(createdFile => {
+          fs.writeFile('./public/files/' + createdFile.filename,
+           content, (err) => {
+            if(err){
+              req.flash('error_msg', 'Sorry! Creating process is failed');
+              res.redirect('/');
+            }else{
+              req.flash('success_msg',
+                        'You created ' + createdFile.filename + ' successfully');
+              res.redirect('/');
+            }
+          });
+        });
+      }else{
+        req.flash('error_msg',
+                  "Sorry! There is something wrong while you creating the file"
+                 );
+        res.redirect('/');
+      }
+    }
 }

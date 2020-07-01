@@ -14,7 +14,7 @@ var multer    = require('multer'),
                 cb(null, true);
             } else {
                 cb(null, false);
-                return cb(req.flash("error_msg", "This file isn't an HTML file"));
+                return cb("This file isn't an HTML file");
             }
         }
     });
