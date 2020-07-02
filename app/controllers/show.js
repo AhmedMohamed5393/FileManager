@@ -3,17 +3,18 @@ var fs        = require('fs'),
     functions = require('../middlewares/functions');
 module.exports = {
     ShowFile: (req, res) => {
+        var messages = req.flash('error');
         File.findById(req.params.id).then(file => {
           fs.readFile('./public/files/' + file.filename, (error, data) => {
             if(error){
               req.flash('error_msg', "Sorry! This file doesn't exist");
               res.redirect('/');
             }else{
-              res.render('pages/file', {
-                filename: file.filename,
+              res.render('pages/show', {
+                file: file,
                 time: functions.datesubtraction(Date.now(), file.saveDate),
                 data: data.toString('utf-8'),
-                fid: req.params.id
+                messages: messages
               });
             }
           });

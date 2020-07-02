@@ -1,10 +1,13 @@
 <%- include("../partials/header") %>
 <div class="container">
+    <div class="row d-flex justify-content-center m-2">
+      <%- include("../partials/messages") %>
+    </div>
     <div class="row d-flex justify-content-center">
       <div class="card m-5 col-lg-8 col-md-8 col-sm-10 col-xs-10 col-10">
         <div class="card-body">
           <nav id="navbar-example2" class="navbar navbar-light bg-light">
-            <h3 class="navbar-brand"><%= filename %></h3>
+            <h3 class="navbar-brand"><%= file.filename %></h3>
             <div class="row mr-2">
               <small class="text-black-50"><%= time %></small>
             </div>
@@ -30,7 +33,7 @@
         </a>
       </div>
       <div class="ml-2">
-        <a href="/files/<%= fid %>/<%= filename %>/edit" class="btn btn-warning">
+        <a href="/files/<%= file._id %>/edit" class="btn btn-warning">
           Edit
         </a>
       </div>

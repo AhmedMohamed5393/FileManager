@@ -3,7 +3,6 @@ var fs        = require('fs'),
     File      = require('../models/file');
 module.exports = {
     EditFile: (req, res) => {
-       var messages = req.flash('error');
        File.findById(req.params.id).then(editfile => {
          fs.readFile('./public/files/' + editfile.filename, (error, data) => {
            if(error){
@@ -13,8 +12,7 @@ module.exports = {
              res.render('pages/edit', {
                file: editfile,
                time: functions.datesubtraction(Date.now(), editfile.saveDate),
-               data: data,
-               messages: messages
+               data: data
              });
            }
          });
@@ -25,9 +23,7 @@ module.exports = {
     },
     UpdateFile: (req, res) => {
         if(req.body.content != undefined){
-          File.findByIdAndUpdate(req.params.id, {
-            filename: req.params.filename
-          }, (err, updatedfile) => {
+          File.findByIdAndUpdate(req.params.id, (err, updatedfile) => {
             if(err){
               req.flash('error_msg', "Sorry! This file doesn't exist");
               res.redirect('/');

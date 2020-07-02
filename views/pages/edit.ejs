@@ -1,12 +1,10 @@
 <%- include("../partials/header") %>
 <div class="container">
-    <div class="row d-flex justify-content-center m-2">
-        <%- include("../partials/messages") %>
-    </div>
     <div class="row d-flex justify-content-center">
-      <form action="/files/<%= file._id %>/<%= file.filename %>/edit?_method=PUT" 
-            method="post" enctype="multipart/form-data">
-        <div class="card m-5 col-lg-8 col-md-8 col-sm-10 col-xs-10 col-10">
+      <form action="/files/<%= file._id %>/edit?_method=PUT" 
+            method="post" enctype="multipart/form-data"
+            class=" col-lg-8 col-md-8 col-sm-10 col-xs-10 col-10">
+        <div class="card m-5">
           <div class="card-body">
             <nav id="navbar-example2" class="navbar navbar-light bg-light">
               <h3 class="navbar-brand"><%= file.filename %></h3>

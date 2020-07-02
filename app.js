@@ -19,12 +19,12 @@ global.document = document;
 mongoose.connect(process.env.MONGO_URI , { 
     useUnifiedTopology : true, 
     useNewUrlParser: true, 
-    useFindAndModify: false
+    useFindAndModify: true
 });
 app.set('view engine' , 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(flash());
 app.use(session({
