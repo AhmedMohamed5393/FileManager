@@ -4,12 +4,12 @@
       <%- include("../partials/messages") %>
     </div>
     <div class="row d-flex justify-content-center">
-      <div class="card m-5 col-lg-8 col-md-8 col-sm-10 col-xs-10 col-10">
+      <div class="card mt-5 col-lg-8 col-md-8 col-sm-10 col-xs-10 col-10">
         <div class="card-body">
           <nav id="navbar-example2" class="navbar navbar-light bg-light">
-            <h3 class="navbar-brand"><%= file.filename %></h3>
-            <div class="row mr-2">
-              <small class="text-black-50"><%= time %></small>
+            <h3 class="navbar-brand text-center"><%= file.filename %></h3>
+            <div class="row ml-2">
+              <small class="text-black-50 text-center"><%= time %></small>
             </div>
             <ul class="nav nav-pills" hidden>
               <li class="nav-item">
@@ -32,11 +32,11 @@
           Go back
         </a>
       </div>
-      <div class="ml-2">
+      <!-- <div class="ml-2">
         <a href="/files/<%= file._id %>/edit" class="btn btn-warning">
           Edit
         </a>
-      </div>
+      </div> -->
     </div>
 </div>
 <%- include("../partials/footer") %>

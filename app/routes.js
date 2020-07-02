@@ -12,10 +12,10 @@ var express            = require('express'),
 router.use(methodOverride('_method'));
 router.get('/', parseUrlencoded, maincontroller.GetFiles);
 router.post('/upload', multer, parseUrlencoded, newcontroller.UploadFile);
-router.post('/create', parseUrlencoded, newcontroller.CreateFile);
+// router.post('/create', parseUrlencoded, newcontroller.CreateFile);
 router.get('/files/:id', parseUrlencoded, showcontroller.ShowFile);
-router.get('/files/:id/edit', parseUrlencoded, editcontroller.EditFile);
-router.put('/files/:id/edit', parseUrlencoded, editcontroller.UpdateFile);
+// router.get('/files/:id/edit', parseUrlencoded, editcontroller.EditFile);
+// router.put('/files/:id/edit', parseUrlencoded, editcontroller.UpdateFile);
 router.get('/download/:id', parseUrlencoded, downloadcontroller.DownloadFile);
 router.delete('/delete/:id', parseUrlencoded, editcontroller.DeleteFile);
 module.exports = router;
